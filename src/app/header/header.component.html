@@ -1,0 +1,21 @@
+<header>
+  <div class="header-items">
+    <div class="mobile">
+      <h1 [routerLink]="['/home']">Sonja's Katzenpension</h1>
+    </div>
+    <div>
+      <app-navbar
+        [showNav]="showNav"
+        (navItems)="getNavItems($event)"
+        (navStatus)="getNavStatus($event)"
+      />
+    </div>
+  </div>
+  @if(showNav){
+  <app-navbar-mobile
+    [navItems]="navItems"
+    [showNav]="showNav"
+    (navStatusMobile)="getNavStatusMobile($event)"
+  />
+  }
+</header>

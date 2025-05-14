@@ -1,0 +1,15 @@
+<div class="regular-guests-container">
+  <h2>Unsere Stammgäste</h2>
+  @if(isFetching() && !error()){
+  <p class="fallback-text fontstyle">Stammgäste werden geladen</p>
+  } @if(error()){
+  <p class="fallback-text fontstyle">{{ error() }}</p>
+  }
+  <ul>
+    @for(guest of guests(); track guest._id){
+    <li class="fontstyle">
+      <app-regular-guest [guest]="guest" />
+    </li>
+    }
+  </ul>
+</div>

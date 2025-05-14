@@ -1,0 +1,12 @@
+<div class="navbar-content-wrapper">
+  @for(navItem of navItems(); track navItem.id){
+  <div class="navitems">
+    <a
+      [routerLink]="['/', navItem.en]"
+      routerLinkActive="active"
+      (click)="selectedPage()"
+      >{{ navItem.de }}</a
+    >
+  </div>
+  }
+</div>

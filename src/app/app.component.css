@@ -1,0 +1,19 @@
+#layout{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+main {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    flex: 1;
+  }
+
+.content{
+  max-width: 80em;
+  margin: 0 10px 0 10px;
+}
+

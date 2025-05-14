@@ -1,0 +1,17 @@
+<div class="navitems big-navbar">
+  @for(navitem of navigationItems; track navitem.id){
+  <div>
+    <a [routerLink]="['/', navitem.en]" routerLinkActive="active">{{
+      navitem.de
+    }}</a>
+  </div>
+  }
+</div>
+
+<div class="burger-navbar" (click)="clickBurger()">
+  <div class="burger-icon">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </div>
+</div>

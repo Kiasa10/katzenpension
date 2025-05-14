@@ -1,0 +1,42 @@
+.footer-container{
+    min-height: 50px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+span{
+    word-break: break-all;
+}
+a{
+    color: black;
+    text-decoration: none;
+    word-break:break-all;
+}
+
+hr{
+    width: 90%;
+}
+
+
+
+
+@media(max-width: 750px){
+    .contact-info{
+        font-size: smaller;
+    }
+}
+
+@media(max-width: 500px){
+    .contact-info{
+        font-size: small;
+    }
+}
+
+@media(max-width: 360px){
+    .contact-info{
+        font-size: x-small;
+    }
+}

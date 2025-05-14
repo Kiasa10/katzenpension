@@ -1,0 +1,22 @@
+<div class="guestbook-container">
+  <h2>Gästebuch</h2>
+  <div class="add-comment-container">
+    <a
+      routerLink="./"
+      [queryParams]="{ order: order() === 'newer' ? 'older' : 'newer' }"
+      class="fontstyle"
+      (click)="sortedComments()"
+      class="add-comment-buttons sorting-button"
+    >
+      Sortiere {{ order() === "newer" ? "Älteste" : "Neueste" }}
+    </a>
+    <a [routerLink]="['/guestbook/new']" class="add-comment-buttons"
+      >Kommentar hinzufügen</a
+    >
+  </div>
+  @for(comment of comments(); track comment._id){
+  <app-comment [comment]="comment" />
+  } @empty {
+  <app-no-comment />
+  }
+</div>

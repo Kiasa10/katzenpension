@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    <h3>{{ room().title }}</h3>
+    <span>Preis pro Katze/Nacht: {{ room().cost }}</span>
+  </div>
+  <div class="image-container">
+    <img src="{{ room().imageUrl }}" alt="Image of Room" class="image" />
+  </div>
+  <div class="card-content">
+    <p>{{ room().description }}</p>
+  </div>
+</div>

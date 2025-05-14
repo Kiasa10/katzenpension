@@ -1,0 +1,13 @@
+<div class="rooms-container">
+  <h2>Unsere Zimmer</h2>
+  @if(isFetching() && !error()){
+  <p class="fallback-text fontstyle">Räume werden geladen</p>
+  } @if(error()){
+  <p class="fallback-text fontstyle">{{ error() }}</p>
+  }
+  <ul>
+    @for (room of rooms(); track room._id){
+    <li class="fontstyle"><app-room [room]="room" /></li>
+    }
+  </ul>
+</div>

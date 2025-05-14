@@ -1,0 +1,51 @@
+.guestbook-container{
+    margin-top: 40px;
+    width: min(40em, 100vw); 
+}
+
+
+.add-comment-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.add-comment-buttons{
+    text-decoration: none;
+    background-color:#673ab7;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    margin: 15px;
+    font-size: 1rem;
+    border: 1px solid #673ab7;  
+    width: 220px;
+    text-align: center;
+    margin: 10px;
+}
+
+.sorting-button{
+    width: 170px;
+}
+
+.add-comment-buttons:hover{
+    background-color: #8561c5;
+    cursor: pointer;
+}
+
+
+@media(max-width: 750px){
+    .add-comment-container{
+        justify-content: center;
+
+    }
+    .add-comment-buttons{
+        font-size: smaller;
+        width: 185px;
+        margin: 5px;
+    }
+    .sorting-button{
+        width: 145px;
+    }
+}

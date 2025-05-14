@@ -1,0 +1,29 @@
+a:hover{
+    color: #8561c5;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
+
+.navbar-content-wrapper{
+    text-align: center;
+}
+
+.active{
+    color: #8561c5;
+}
+ 
+.navitems{
+    height: 30px;
+}
+
+@media(min-width: 1002px){
+    .navbar-content-wrapper{
+        display: none;
+    }
+
+}
+

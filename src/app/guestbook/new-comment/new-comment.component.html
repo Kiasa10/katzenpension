@@ -1,0 +1,68 @@
+<div class="form-container">
+  <form [formGroup]="newCommentForm" (ngSubmit)="onSubmit()">
+    <h2>Kommentar hinzufügen:</h2>
+    <div class="fontstyle">
+      <div class="control-row">
+        <div class="test">
+          <label for="headline">Überschrift *</label>
+          <input
+            id="headline"
+            type="text"
+            formControlName="headline"
+            maxlength="50"
+          />
+          @if(newCommentForm.controls.headline.invalid &&
+          newCommentForm.controls.headline.touched){
+          <p class="invalid">Überschrift erforderlich</p>
+          }
+        </div>
+        <div>
+          <label for="username">Username *</label>
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            maxlength="50"
+          />
+          @if(newCommentForm.controls.username.invalid &&
+          newCommentForm.controls.username.touched){
+          <p class="invalid">Username erforderlich</p>
+          }
+        </div>
+      </div>
+      <div class="control-textarea">
+        <label for="comment">Kommentar *</label>
+        <textarea
+          name="comment"
+          id="comment"
+          rows="6"
+          cols="62"
+          formControlName="content"
+          maxlength="800"
+        ></textarea>
+        @if(newCommentForm.controls.content.invalid &&
+        newCommentForm.controls.content.touched){
+        <p class="invalid">Kommentar erforderlich</p>
+        }
+      </div>
+    </div>
+    <p class="fontstyle">
+      Alle mit * gekennzeichneten Felder sind Pflichtfelder
+    </p>
+    <div class="form-actions">
+      <a
+        [routerLink]="['/guestbook']"
+        routerLinkActive="guestbook"
+        class="form-button"
+        >Abbrechen</a
+      >
+      <button
+        type="submit"
+        class="form-button submit-button"
+        [disabled]="!newCommentForm.valid"
+      >
+        Speichern
+      </button>
+    </div>
+  </form>
+</div>

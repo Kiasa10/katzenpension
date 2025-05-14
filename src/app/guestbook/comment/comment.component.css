@@ -1,0 +1,35 @@
+.comment-container{
+    border-bottom: 1px solid #482880;
+    word-wrap:break-word ;
+    
+}
+
+.comment-info{
+    font-size: smaller;
+    
+}
+
+.comment-info p{
+    margin-bottom: 6px;
+}
+
+.comment-content{
+    margin: 10px 0 10px 0;
+}
+
+h3{
+    font-weight: 400;
+    margin-top: 0;
+}
+
+.username{
+    font-weight: 500;
+}
+
+@media(max-width: 750px){
+    .comment-container{
+        max-width: 20em;
+        margin: 0 16px 0 16px;
+    }
+
+}

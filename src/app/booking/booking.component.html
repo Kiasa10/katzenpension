@@ -1,0 +1,295 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Aufenthalt buchen:</h2>
+    <div class="timeframe fontstyle" formGroupName="timeframe">
+      <div class="datepicker">
+        <label for="startDate">Erster Tag *</label>
+        <input
+          type="date"
+          id="startDate"
+          name="startDate"
+          min="{{ createDate() }}"
+          max="{{ maxBookingDate() }}"
+          formControlName="startDate"
+        />
+        @if(form.controls.timeframe.get("startDate")?.invalid &&
+        form.controls.timeframe.get("startDate")?.touched){
+        <p class="invalid">Startdatum erforderlich</p>
+        }
+      </div>
+      <div class="datepicker">
+        <label for="endDate">Letzter Tag *</label>
+        <input
+          type="date"
+          id="endDate"
+          name="endDate"
+          min="{{ createDate() }}"
+          max="{{ maxBookingDate() }}"
+          formControlName="endDate"
+        />
+        @if(form.controls.timeframe.get("endDate")?.invalid &&
+        form.controls.timeframe.get("endDate")?.touched){
+        <p class="invalid">Enddatum erforderlich</p>
+        }
+      </div>
+      <div>
+        <label for="selectedRoom">Raum *</label>
+        <select
+          name="selectedRoom"
+          id="selectedRoom"
+          formControlName="selectedRoom"
+          class="dropdown"
+        >
+          @for(room of rooms(); track room._id){
+          <option value="{{ room._id }}">{{ room.title }}</option>
+          }
+        </select>
+        @if(form.controls.timeframe.get("selectedRoom")?.invalid &&
+        form.controls.timeframe.get("selectedRoom")?.touched){
+        <p class="invalid">Bitte Raum wählen</p>
+        }
+      </div>
+    </div>
+    <div class="fontstyle longer-errors">
+      @if(form.controls.timeframe.hasError("startDateIsBigger") &&
+      form.controls.timeframe.get("startDate")?.dirty &&
+      form.controls.timeframe.get("endDate")?.dirty){
+      <p class="invalid">Enddatum darf nicht vor dem Startdatum liegen.</p>
+      } @else if(form.controls.timeframe.hasError("timespanTooBig") &&
+      form.controls.timeframe.get("startDate")?.dirty &&
+      form.controls.timeframe.get("endDate")?.dirty){
+      <p class="invalid">
+        Maximal 2 Wochen buchbar. Wenn ein längerer Zeitraum benötigt wird,
+        bitte per E-Mail anfragen.
+      </p>
+      } @else if(form.controls.timeframe.hasError("bookingTooFarAway") &&
+      form.controls.timeframe.get("startDate")?.dirty &&
+      form.controls.timeframe.get("endDate")?.dirty){
+      <p class="invalid">
+        Es können nur Buchungen innerhalb eines Jahres akzeptiert werden.
+      </p>
+      }
+    </div>
+    <hr />
+    <fieldset formGroupName="contact" class="fontstyle">
+      <legend>Kontaktdaten</legend>
+      <div class="control-row">
+        <div>
+          <label for="first-name">Vorname *</label>
+          <input
+            type="text"
+            name="first-name"
+            id="first-name"
+            formControlName="firstName"
+            maxlength="50"
+            size="25"
+          />
+          @if(form.controls.contact.get("firstName")?.invalid &&
+          form.controls.contact.get("firstName")?.touched){
+          <p class="invalid">Vorname erforderlich</p>
+          }
+        </div>
+        <div>
+          <label for="last-name">Nachname *</label>
+          <input
+            type="text"
+            name="last-name"
+            id="last-name"
+            formControlName="lastName"
+            maxlength="50"
+            size="25"
+          />
+          @if(form.controls.contact.get("lastName")?.invalid &&
+          form.controls.contact.get("lastName")?.touched){
+          <p class="invalid">Nachname erforderlich</p>
+          }
+        </div>
+      </div>
+
+      <div class="control-row">
+        <div>
+          <label for="street">Straße *</label>
+          <input
+            type="text"
+            name="street"
+            id="street"
+            formControlName="street"
+            maxlength="50"
+            size="25"
+          />
+          @if(form.controls.contact.get("street")?.invalid &&
+          form.controls.contact.get("street")?.touched){
+          <p class="invalid">Straße erforderlich</p>
+          }
+        </div>
+        <div>
+          <label for="number">Hausnummer *</label>
+          <input
+            type="text"
+            name="number"
+            id="number"
+            formControlName="number"
+            maxlength="10"
+            size="25"
+          />
+          @if(form.controls.contact.get("number")?.invalid &&
+          form.controls.contact.get("number")?.touched){
+          <p class="invalid">Hausnummer erforderlich</p>
+          }
+        </div>
+      </div>
+
+      <div class="control-row">
+        <div>
+          <label for="postalcode">PLZ *</label>
+          <input
+            type="text"
+            name="postalcode"
+            id="postalcode"
+            formControlName="postalCode"
+            maxlength="10"
+            size="25"
+          />
+          @if(form.controls.contact.get("postalCode")?.invalid &&
+          form.controls.contact.get("postalCode")?.touched){
+          <p class="invalid">PLZ erforderlich</p>
+          }
+        </div>
+        <div>
+          <label for="city">Stadt *</label>
+          <input
+            type="text"
+            name="city"
+            id="city"
+            formControlName="city"
+            maxlength="50"
+            size="25"
+          />
+          @if(form.controls.contact.get("city")?.invalid &&
+          form.controls.contact.get("city")?.touched){
+          <p class="invalid">Stadt erforderlich</p>
+          }
+        </div>
+      </div>
+
+      <div class="control-row">
+        <div>
+          <label for="email">E-Mail *</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            formControlName="email"
+            maxlength="100"
+            size="25"
+          />
+          @if(form.controls.contact.get("email")?.invalid &&
+          form.controls.contact.get("email")?.touched){
+          <p class="invalid">Gültige E-Mail erforderlich</p>
+          }
+        </div>
+        <div>
+          <label for="phone">Telefonnummer *</label>
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            formControlName="phone"
+            maxlength="20"
+            size="25"
+          />
+          @if(form.controls.contact.get("phone")?.invalid &&
+          form.controls.contact.get("phone")?.touched){
+          <p class="invalid">Telefonnummer erforderlich</p>
+          }
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="cat" class="fontstyle">
+      <legend>Informationen zu Katze/n</legend>
+      <div class="cat-controls">
+        <div>
+          <label for="catamount">Anzahl Katzen *</label>
+          <select
+            name="catamount"
+            id="catamount"
+            formControlName="catAmount"
+            class="dropdown"
+          >
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="four">4</option>
+          </select>
+          @if(form.controls.cat.get("catAmount")?.invalid &&
+          form.controls.cat.get("catAmount")?.touched){
+          <p class="invalid">Telefonnummer erforderlich</p>
+          }
+        </div>
+        <div>
+          <br />
+          <span class="medication-text">Medikamente</span>
+          <div>
+            <span
+              >Benötigt eine oder mehrere Ihrer Katzen täglich
+              Medikamente?</span
+            >
+            <label for="medication"
+              >Bitte hier Name, Dosis und Einnahmezeitraum der Medikamente
+              auflisten</label
+            >
+            <textarea
+              name="medication"
+              id="medication"
+              rows="6"
+              cols="30"
+              formControlName="medication"
+            ></textarea>
+          </div>
+        </div>
+        <br />
+        <div>
+          <div class="vaccination">
+            <label for="vaccination"
+              ><input
+                type="checkbox"
+                id="vaccination"
+                name="vaccination"
+                formControlName="vaccination"
+              />
+              Hiermit bestätige ich, dass alle abzugebenden Tiere bei folgender
+              Medikation auf aktuellem Stand (nicht älter als 1 Jahr) sind: *
+            </label>
+            @if(form.controls.cat.get("vaccination")?.invalid &&
+            form.controls.cat.get("vaccination")?.touched ){
+            <p class="invalid">Dieses Feld ist ein Pflichtfeld</p>
+            }
+          </div>
+          <ul>
+            <li>Wurmkur</li>
+            <li>Impfung 1</li>
+            <li>Impfung 2</li>
+          </ul>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="form-bottom fontstyle">
+      <div>
+        <p>Alle mit * gekennzeichneten Felder sind Pflichtfelder</p>
+        @if(form.invalid && form.touched && form.dirty){
+        <span id="test">Bitte überprüfen Sie Ihre Eingaben!</span>
+        } @if(success()){
+        <span class="success">Buchung hat geklappt!</span>
+        }
+      </div>
+      <div class="form-actions">
+        <button type="reset">Abbrechen</button>
+        <button type="submit" class="button-submit" [disabled]="!form.valid">
+          Buchen
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
