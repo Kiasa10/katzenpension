@@ -5,18 +5,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-navbar-mobile',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar-mobile.component.html',
-  styleUrl: './navbar-mobile.component.css'
+  styleUrl: './navbar-mobile.component.css',
 })
 export class NavbarMobileComponent {
-
-  navItems = input.required<{en: string, de: string, id: string}[]>();
+  navItems = input.required<{ en: string; de: string; id: string }[]>();
   navStatusMobile = output<boolean>();
   showNav = input.required<boolean>();
 
-
-  selectedPage(){
+  selectedPage() {
     this.navStatusMobile.emit(!this.showNav());
   }
-
-
 }

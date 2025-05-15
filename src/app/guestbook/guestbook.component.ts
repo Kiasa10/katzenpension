@@ -25,6 +25,7 @@ export class GuestbookComponent implements OnInit {
   comments = signal<Comment[] | undefined>(undefined);
   error = signal('');
   order = input<'older' | 'newer'>('newer');
+  isFetching = signal(false);
 
   sortedComments = computed(() =>
     this.comments()?.sort((a, b) => {
@@ -37,12 +38,16 @@ export class GuestbookComponent implements OnInit {
   );
 
   ngOnInit() {
+    this.isFetching.set(true);
     const subscription = this.api.loadComments().subscribe({
       next: (comments) => {
         this.comments.set(comments);
       },
       error: (err: Error) => {
         this.error.set(err.message);
+      },
+      complete: () => {
+        this.isFetching.set(false);
       },
     });
 

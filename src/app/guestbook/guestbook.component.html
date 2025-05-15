@@ -14,9 +14,14 @@
       >Kommentar hinzufügen</a
     >
   </div>
-  @for(comment of comments(); track comment._id){
+  @if(isFetching() && !error()){
+  <p class="fallback-text fontstyle">Räume werden geladen</p>
+  } @if(error()){
+  <p class="fallback-text fontstyle">{{ error() }}</p>
+  } @if(!isFetching() && !error()){ @for(comment of comments(); track
+  comment._id){
   <app-comment [comment]="comment" />
   } @empty {
   <app-no-comment />
-  }
+  } }
 </div>

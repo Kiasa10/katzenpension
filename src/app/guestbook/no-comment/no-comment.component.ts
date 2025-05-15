@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-no-comment',
   imports: [],
   templateUrl: './no-comment.component.html',
-  styleUrl: './no-comment.component.css'
+  styleUrl: './no-comment.component.css',
 })
-export class NoCommentComponent {
-
-}
+export class NoCommentComponent {}
