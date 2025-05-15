@@ -1,4 +1,4 @@
-.faq-container {
+#faq-container {
   margin-top: 40px;
   width: min(40em, 100vw);
 }
@@ -40,13 +40,13 @@ p {
 }
 
 @media (max-width: 1002px) {
-  .faq-container {
+  #faq-container {
     width: min(30em, 100vw);
   }
 }
 
 @media (max-width: 600px) {
-  .faq-container {
+  #faq-container {
     width: min(16em, 100vw);
   }
 }

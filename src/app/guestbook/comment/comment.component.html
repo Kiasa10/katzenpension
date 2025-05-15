@@ -1,7 +1,7 @@
-<div class="comment-container fontstyle">
+<div id="comment-container" class="fontstyle">
   <div class="comment-info">
     <p>
-      <span class="username">{{ comment()?.username }}</span>
+      <span id="username">{{ comment()?.username }}</span>
       am
       <time> {{ comment()?.timestamp | date : "dd/M/yyyy HH:mm" }}</time>
     </p>

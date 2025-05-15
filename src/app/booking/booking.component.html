@@ -1,4 +1,4 @@
-<div class="form-container">
+<div id="form-container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <h2>Aufenthalt buchen:</h2>
     <div class="timeframe fontstyle" formGroupName="timeframe">
@@ -286,7 +286,7 @@
       </div>
       <div class="form-actions">
         <button type="reset">Abbrechen</button>
-        <button type="submit" class="button-submit" [disabled]="!form.valid">
+        <button type="submit" id="button-submit" [disabled]="!form.valid">
           Buchen
         </button>
       </div>

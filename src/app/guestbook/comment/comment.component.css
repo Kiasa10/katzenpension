@@ -1,4 +1,4 @@
-.comment-container {
+#comment-container {
   border-bottom: 1px solid #482880;
   word-wrap: break-word;
 }
@@ -20,12 +20,12 @@ h3 {
   margin-top: 0;
 }
 
-.username {
+#username {
   font-weight: 500;
 }
 
 @media (max-width: 750px) {
-  .comment-container {
+  #comment-container {
     max-width: 20em;
     margin: 0 16px 0 16px;
   }

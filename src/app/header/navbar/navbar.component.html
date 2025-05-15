@@ -1,4 +1,4 @@
-<div class="navitems big-navbar">
+<div id="big-navbar" class="navitems">
   @for(navitem of navigationItems; track navitem.id){
   <div>
     <a [routerLink]="['/', navitem.en]" routerLinkActive="active">{{
@@ -8,7 +8,7 @@
   }
 </div>
 
-<div class="burger-navbar" (click)="clickBurger()">
+<div id="burger-navbar" (click)="clickBurger()">
   <div class="burger-icon">
     <span class="line"></span>
     <span class="line"></span>

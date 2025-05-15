@@ -49,19 +49,16 @@ div.burger-icon {
 }
 
 @media (max-width: 1002px) {
-  .big-navbar {
+  #big-navbar {
     display: none;
   }
-  .burger-navbar {
+  #burger-navbar {
     margin-right: 10px;
   }
 }
 
 @media (min-width: 1002px) {
-  .burger-navbar {
-    display: none;
-  }
-  .navbar-content-wrapper {
+  #burger-navbar {
     display: none;
   }
 }

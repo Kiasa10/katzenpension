@@ -1,4 +1,4 @@
-.form-container {
+#form-container {
   display: flex;
   justify-content: center;
   width: min(50em, 100vw);
@@ -116,7 +116,7 @@ form button:hover {
   background-color: #8561c5;
 }
 
-.button-submit:disabled {
+#button-submit:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -158,7 +158,7 @@ input.ng-invalid.ng-touched {
 }
 
 @media (max-width: 1002px) {
-  .form-container {
+  #form-container {
     max-width: 40em;
   }
   .form-bottom {
@@ -167,7 +167,7 @@ input.ng-invalid.ng-touched {
 }
 
 @media (max-width: 600px) {
-  .form-container {
+  #form-container {
     max-width: 20em;
   }
   form button {

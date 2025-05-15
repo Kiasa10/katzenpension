@@ -8,7 +8,7 @@ a {
   font-size: larger;
 }
 
-.navbar-content-wrapper {
+#navbar-content-wrapper {
   text-align: center;
 }
 
@@ -21,7 +21,7 @@ a {
 }
 
 @media (min-width: 1002px) {
-  .navbar-content-wrapper {
+  #navbar-content-wrapper {
     display: none;
   }
 }

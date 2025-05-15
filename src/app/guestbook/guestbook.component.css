@@ -1,9 +1,9 @@
-.guestbook-container {
+#guestbook-container {
   margin-top: 40px;
   width: min(40em, 100vw);
 }
 
-.add-comment-container {
+#add-comment-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -37,7 +37,7 @@
 }
 
 @media (max-width: 750px) {
-  .add-comment-container {
+  #add-comment-container {
     justify-content: center;
   }
   .add-comment-buttons {

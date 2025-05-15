@@ -1,4 +1,4 @@
-.form-container {
+#form-container {
   display: flex;
   justify-content: center;
   width: min(30em, 100vw);
