@@ -16,7 +16,6 @@ export class HeaderComponent {
   getNavItems(navItems: { de: string; en: string; id: string }[]) {
     this.navItems = navItems;
   }
-
   getNavStatus(navStatus: boolean) {
     this.showNav = navStatus;
   }
