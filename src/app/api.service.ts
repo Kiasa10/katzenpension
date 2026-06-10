@@ -12,12 +12,13 @@ import { environment } from '../environments/environment';
 })
 export class ApiService {
   private httpClient = inject(HttpClient);
+
   private apiUrl = environment.apiUrl;
 
   loadRooms() {
     return this.fetchRooms(
       this.apiUrl + '/rooms',
-      'Die Räume konnten nicht geladen werden. Bitte versuchen Sie es später nochmal!'
+      'Die Räume konnten nicht geladen werden. Bitte versuchen Sie es später nochmal!',
     );
   }
 
@@ -27,14 +28,14 @@ export class ApiService {
       catchError((error) => {
         console.log(error);
         return throwError(() => new Error(errorMessage));
-      })
+      }),
     );
   }
 
   loadGuests() {
     return this.fetchGuests(
       this.apiUrl + '/guests',
-      'Die Stammgäste konnten nicht geladen werden. Bitte versuchen Sie es später nochmal!'
+      'Die Stammgäste konnten nicht geladen werden. Bitte versuchen Sie es später nochmal!',
     );
   }
 
@@ -44,14 +45,14 @@ export class ApiService {
       catchError((error) => {
         console.log(error);
         return throwError(() => new Error(errorMessage));
-      })
+      }),
     );
   }
 
   loadComments() {
     return this.fetchComments(
       this.apiUrl + '/guestbook',
-      'Die Kommentare konnten nicht geladen werden. Bitte versuchen Sie es später nochmal!'
+      'Die Kommentare konnten nicht geladen werden. Bitte versuchen Sie es später nochmal!',
     );
   }
 
@@ -61,7 +62,7 @@ export class ApiService {
       catchError((error) => {
         console.log(error);
         return throwError(() => new Error(errorMessage));
-      })
+      }),
     );
   }
 
@@ -74,10 +75,10 @@ export class ApiService {
           return throwError(
             () =>
               new Error(
-                'Ups, das hat nicht funktioniert. Bitte versuchen Sie es später nochmal!'
-              )
+                'Ups, das hat nicht funktioniert. Bitte versuchen Sie es später nochmal!',
+              ),
           );
-        })
+        }),
       );
   }
 
@@ -88,10 +89,10 @@ export class ApiService {
         return throwError(
           () =>
             new Error(
-              'Ups, das hat nicht funktioniert. Bitte versuchen Sie es später nochmal!'
-            )
+              'Ups, das hat nicht funktioniert. Bitte versuchen Sie es später nochmal!',
+            ),
         );
-      })
+      }),
     );
   }
 }

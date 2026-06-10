@@ -23,7 +23,7 @@ const noWhitespace: ValidatorFn = (control: AbstractControl) => {
   return (control.value || '').trim().length ? null : { hasWhitespace: true };
 };
 const biggerEndDate: ValidatorFn = (
-  control: AbstractControl
+  control: AbstractControl,
 ): ValidationErrors | null => {
   const startDate = control.get('startDate');
   const endDate = control.get('endDate');
@@ -33,7 +33,7 @@ const biggerEndDate: ValidatorFn = (
 };
 
 const timespan: ValidatorFn = (
-  control: AbstractControl
+  control: AbstractControl,
 ): ValidationErrors | null => {
   const startDate = control.get('startDate');
   const endDate = control.get('endDate');
@@ -87,7 +87,7 @@ export class BookingComponent implements OnInit {
           validators: [Validators.required],
         }),
       },
-      { validators: [biggerEndDate, timespan] }
+      { validators: [biggerEndDate, timespan] },
     ),
     contact: new FormGroup({
       firstName: new FormControl('', {
@@ -217,7 +217,7 @@ export class BookingComponent implements OnInit {
         },
       });
 
-    this.destroyRef.onDestroy(() => subscription.unsubscribe);
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
     this.form.reset();
     this.updateValues();
   }

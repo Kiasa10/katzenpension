@@ -14,8 +14,16 @@ const RoomSchema = new Schema({
     type: String,
     required: true,
   },
-  description: {
+  descriptionShort: {
     type: String,
+    required: true,
+  },
+  descriptionLong: {
+    type: String,
+    required: true,
+  },
+  catsPossible: {
+    type: Number,
     required: true,
   },
 });

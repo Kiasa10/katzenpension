@@ -3,14 +3,23 @@
   <p>
     Hier finden Sie eine Auflistung über die am häufigsten gestellten Fragen
   </p>
-  @for(question of questions; track question.id){
-  <div class="questionItem">
-    <div (click)="toggleAnswer(question.id)" class="question">
-      {{ question.question }}
+  @for (question of questions; track question.id) {
+    <div class="questionItem">
+      <div (click)="toggleAnswer(question.id)" class="question">
+        {{ question.question }}
+      </div>
+      @if (showAnswer === question.id) {
+        @let parsed = splitAnswer(question.answer);
+
+        <div class="answer">
+          @if (parsed.hasLink) {
+            {{ parsed.before }}<a class="link" routerLink="/rooms">Zimmer</a
+            >{{ parsed.after }}
+          } @else {
+            {{ question.answer }}
+          }
+        </div>
+      }
     </div>
-    @if(showAnswer === question.id){
-    <div class="answer">{{ question.answer }}</div>
-    }
-  </div>
   }
 </div>

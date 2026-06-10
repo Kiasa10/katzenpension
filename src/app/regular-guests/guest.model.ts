@@ -3,5 +3,5 @@ export interface Guest {
   name: string;
   age: number;
   imageUrl: string;
-  description: string;
+  descriptionShort: string;
 }

@@ -8,5 +8,5 @@ import { Guest } from '../guest.model';
   styleUrl: './regular-guest.component.css',
 })
 export class RegularGuestComponent {
-  guest = input.required<Guest>(); // Nicht selected guest, sind ja nicht ausgewählt
+  guest = input.required<Guest>();
 }

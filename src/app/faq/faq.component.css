@@ -39,6 +39,11 @@ p {
   width: 100%;
 }
 
+.link {
+  text-decoration: none;
+  font-weight: bolder;
+}
+
 @media (max-width: 1002px) {
   #faq-container {
     width: min(30em, 100vw);
