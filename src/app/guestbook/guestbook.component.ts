@@ -30,11 +30,11 @@ export class GuestbookComponent implements OnInit {
   sortedComments = computed(() =>
     this.comments()?.sort((a, b) => {
       if (this.order() === 'newer') {
-        return a.timestamp > b.timestamp ? 1 : -1;
+        return a.date > b.date ? 1 : -1;
       } else {
-        return a.timestamp > b.timestamp ? -1 : 1;
+        return a.date > b.date ? -1 : 1;
       }
-    })
+    }),
   );
 
   ngOnInit() {

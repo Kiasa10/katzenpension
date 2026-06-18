@@ -3,7 +3,7 @@
     <p>
       <span id="username">{{ comment()?.username }}</span>
       am
-      <time> {{ comment()?.timestamp | date : "dd/M/yyyy HH:mm" }}</time>
+      <time> {{ comment()?.date | date: "dd/M/yyyy HH:mm" }}</time>
     </p>
   </div>
   <h3>{{ comment()?.headline }}</h3>

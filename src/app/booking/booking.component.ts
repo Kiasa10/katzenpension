@@ -1,11 +1,5 @@
-import {
-  Component,
-  computed,
-  DestroyRef,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   AbstractControl,
   FormControl,
@@ -16,8 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { Room } from '../rooms/room.model';
-import { HttpClient } from '@angular/common/http';
+
+import { rooms } from './booking.model';
 
 const noWhitespace: ValidatorFn = (control: AbstractControl) => {
   return (control.value || '').trim().length ? null : { hasWhitespace: true };
@@ -25,11 +19,18 @@ const noWhitespace: ValidatorFn = (control: AbstractControl) => {
 const biggerEndDate: ValidatorFn = (
   control: AbstractControl,
 ): ValidationErrors | null => {
-  const startDate = control.get('startDate');
-  const endDate = control.get('endDate');
-  return new Date(startDate?.value) <= new Date(endDate?.value)
-    ? null
-    : { startDateIsBigger: true };
+  const startDate = control.get('startDate')?.value;
+  const endDate = control.get('endDate')?.value;
+
+  if (!startDate || !endDate) {
+    return null;
+  }
+
+  const startMs = new Date(startDate).getTime();
+  const endMs = new Date(endDate).getTime();
+  const oneDayInMs = 1000 * 60 * 60 * 24;
+
+  return endMs >= startMs + oneDayInMs ? null : { startDateIsBigger: true };
 };
 
 const timespan: ValidatorFn = (
@@ -53,26 +54,18 @@ const timespan: ValidatorFn = (
   providers: [],
   styleUrl: './booking.component.css',
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent {
   api = inject(ApiService);
   destroyRef = inject(DestroyRef);
-  rooms = signal<Room[] | undefined>(undefined);
-  httpClient = inject(HttpClient);
+  rooms = rooms;
   success = signal(false);
   invalid = signal(false);
-  initRoomVal = computed(() => this.rooms()?.[0]._id);
+  initRoomVal = rooms[0].value;
 
-  ngOnInit() {
-    const subscription = this.api.loadRooms().subscribe({
-      next: (rooms) => {
-        this.rooms.set(rooms);
-        this.form.controls.timeframe.patchValue({
-          selectedRoom: this.initRoomVal(),
-        });
-      },
-    });
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
-  }
+  minDate = new Date().toISOString().slice(0, 10);
+  maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+    .toISOString()
+    .slice(0, 10);
 
   form = new FormGroup({
     timeframe: new FormGroup(
@@ -83,7 +76,7 @@ export class BookingComponent implements OnInit {
         endDate: new FormControl('', {
           validators: [Validators.required],
         }),
-        selectedRoom: new FormControl('', {
+        selectedRoom: new FormControl(this.initRoomVal, {
           validators: [Validators.required],
         }),
       },
@@ -149,7 +142,7 @@ export class BookingComponent implements OnInit {
       }),
     }),
     cat: new FormGroup({
-      catAmount: new FormControl<'one' | 'two' | 'three' | 'four'>('one', {
+      catAmount: new FormControl<1 | 2 | 3 | 4>(1, {
         validators: [Validators.required],
       }),
       medication: new FormControl(''),
@@ -159,28 +152,15 @@ export class BookingComponent implements OnInit {
     }),
   });
 
-  createDate() {
-    let minDate = new Date().toISOString().slice(0, 10);
-    return minDate;
-  }
-
-  maxBookingDate() {
-    const today = new Date();
-    const oneYear = 1000 * 60 * 60 * 24 * 365;
-    const calcDate = today.setTime(today.getTime() + oneYear);
-    const maxEndDate = new Date(calcDate).toISOString().slice(0, 10);
-    return maxEndDate;
-  }
-
   getFormData() {
     return this.form.controls;
   }
 
   updateValues() {
     this.form.controls.timeframe.patchValue({
-      selectedRoom: this.initRoomVal(),
+      selectedRoom: this.initRoomVal,
     });
-    this.form.controls.cat.patchValue({ catAmount: 'one' });
+    this.form.controls.cat.patchValue({ catAmount: 1 });
   }
 
   onSubmit() {
@@ -191,34 +171,38 @@ export class BookingComponent implements OnInit {
     }
     this.invalid.set(false);
     const booking = this.form.value;
+    console.log(booking.timeframe?.selectedRoom);
     const subscription = this.api
       .sendBooking({
-        startDate: booking.timeframe?.startDate ?? '',
-        endDate: booking.timeframe?.endDate ?? '',
-        selectedRoom: booking.timeframe?.selectedRoom ?? '',
-        firstName: booking.contact?.firstName ?? '',
-        lastName: booking.contact?.lastName ?? '',
-        street: booking.contact?.street ?? '',
-        number: booking.contact?.number ?? '',
-        postalCode: booking.contact?.postalCode ?? '',
-        city: booking.contact?.city ?? '',
-        email: booking.contact?.email ?? '',
-        phone: booking.contact?.phone ?? '',
-        catAmount: booking.cat?.catAmount ?? '',
-        medication: booking.cat?.medication ?? '',
-        vaccination: booking.cat?.vaccination ?? false,
+        firstDay: new Date(booking.timeframe!.startDate!),
+        lastDay: new Date(booking.timeframe!.endDate!),
+        room: booking.timeframe?.selectedRoom ?? '',
+        contactInfo: {
+          firstName: booking.contact?.firstName ?? '',
+          lastName: booking.contact?.lastName ?? '',
+          street: booking.contact?.street ?? '',
+          houseNumber: booking.contact?.number ?? '',
+          postalCode: booking.contact?.postalCode ?? '',
+          city: booking.contact?.city ?? '',
+          email: booking.contact?.email ?? '',
+          phoneNumber: booking.contact?.phone ?? '',
+        },
+        catInfo: {
+          catAmount: booking.cat?.catAmount ?? 1,
+          medication: booking.cat?.medication ?? '',
+          vaccination: booking.cat?.vaccination ?? false,
+        },
       })
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         complete: () => {
           this.success.set(true);
+          this.form.reset();
+          this.updateValues();
           setTimeout(() => {
             this.success.set(false);
           }, 3000);
         },
       });
-
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
-    this.form.reset();
-    this.updateValues();
   }
 }

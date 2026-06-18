@@ -8,13 +8,15 @@
           type="date"
           id="startDate"
           name="startDate"
-          min="{{ createDate() }}"
-          max="{{ maxBookingDate() }}"
+          [min]="minDate"
+          [max]="maxDate"
           formControlName="startDate"
         />
-        @if(form.controls.timeframe.get("startDate")?.invalid &&
-        form.controls.timeframe.get("startDate")?.touched){
-        <p class="invalid">Startdatum erforderlich</p>
+        @if (
+          form.controls.timeframe.get("startDate")?.invalid &&
+          form.controls.timeframe.get("startDate")?.touched
+        ) {
+          <p class="invalid">Startdatum erforderlich</p>
         }
       </div>
       <div class="datepicker">
@@ -23,13 +25,15 @@
           type="date"
           id="endDate"
           name="endDate"
-          min="{{ createDate() }}"
-          max="{{ maxBookingDate() }}"
+          [min]="minDate"
+          [max]="maxDate"
           formControlName="endDate"
         />
-        @if(form.controls.timeframe.get("endDate")?.invalid &&
-        form.controls.timeframe.get("endDate")?.touched){
-        <p class="invalid">Enddatum erforderlich</p>
+        @if (
+          form.controls.timeframe.get("endDate")?.invalid &&
+          form.controls.timeframe.get("endDate")?.touched
+        ) {
+          <p class="invalid">Enddatum erforderlich</p>
         }
       </div>
       <div>
@@ -40,34 +44,41 @@
           formControlName="selectedRoom"
           class="dropdown"
         >
-          @for(room of rooms(); track room._id){
-          <option value="{{ room._id }}">{{ room.title }}</option>
+          @for (room of rooms; track room.value) {
+            <option value="{{ room.value }}">{{ room.label }}</option>
           }
         </select>
-        @if(form.controls.timeframe.get("selectedRoom")?.invalid &&
-        form.controls.timeframe.get("selectedRoom")?.touched){
-        <p class="invalid">Bitte Raum wählen</p>
+        @if (
+          form.controls.timeframe.get("selectedRoom")?.invalid &&
+          form.controls.timeframe.get("selectedRoom")?.touched
+        ) {
+          <p class="invalid">Bitte Raum wählen</p>
         }
       </div>
     </div>
     <div class="fontstyle longer-errors">
-      @if(form.controls.timeframe.hasError("startDateIsBigger") &&
-      form.controls.timeframe.get("startDate")?.dirty &&
-      form.controls.timeframe.get("endDate")?.dirty){
-      <p class="invalid">Enddatum darf nicht vor dem Startdatum liegen.</p>
-      } @else if(form.controls.timeframe.hasError("timespanTooBig") &&
-      form.controls.timeframe.get("startDate")?.dirty &&
-      form.controls.timeframe.get("endDate")?.dirty){
-      <p class="invalid">
-        Maximal 2 Wochen buchbar. Wenn ein längerer Zeitraum benötigt wird,
-        bitte per E-Mail anfragen.
-      </p>
-      } @else if(form.controls.timeframe.hasError("bookingTooFarAway") &&
-      form.controls.timeframe.get("startDate")?.dirty &&
-      form.controls.timeframe.get("endDate")?.dirty){
-      <p class="invalid">
-        Es können nur Buchungen innerhalb eines Jahres akzeptiert werden.
-      </p>
+      @if (
+        form.controls.timeframe.hasError("startDateIsBigger") &&
+        form.controls.timeframe.get("startDate")?.dirty &&
+        form.controls.timeframe.get("endDate")?.dirty
+      ) {
+        <p class="invalid">Enddatum darf nicht vor dem Startdatum liegen.</p>
+      } @else if (
+        form.controls.timeframe.hasError("timespanTooBig") &&
+        form.controls.timeframe.get("startDate")?.dirty &&
+        form.controls.timeframe.get("endDate")?.dirty
+      ) {
+        <p class="invalid">
+          Maximal 2 Wochen buchbar. Wenn ein längerer Zeitraum benötigt wird,
+          bitte per E-Mail anfragen.
+        </p>
+      } @else if (
+        form.controls.timeframe.get("startDate")?.hasError("max") ||
+        form.controls.timeframe.get("endDate")?.hasError("max")
+      ) {
+        <p class="invalid">
+          Es können nur Buchungen innerhalb eines Jahres akzeptiert werden.
+        </p>
       }
     </div>
     <hr />
@@ -84,9 +95,11 @@
             maxlength="50"
             size="25"
           />
-          @if(form.controls.contact.get("firstName")?.invalid &&
-          form.controls.contact.get("firstName")?.touched){
-          <p class="invalid">Vorname erforderlich</p>
+          @if (
+            form.controls.contact.get("firstName")?.invalid &&
+            form.controls.contact.get("firstName")?.touched
+          ) {
+            <p class="invalid">Vorname erforderlich</p>
           }
         </div>
         <div class="control-item">
@@ -99,9 +112,11 @@
             maxlength="50"
             size="25"
           />
-          @if(form.controls.contact.get("lastName")?.invalid &&
-          form.controls.contact.get("lastName")?.touched){
-          <p class="invalid">Nachname erforderlich</p>
+          @if (
+            form.controls.contact.get("lastName")?.invalid &&
+            form.controls.contact.get("lastName")?.touched
+          ) {
+            <p class="invalid">Nachname erforderlich</p>
           }
         </div>
       </div>
@@ -117,9 +132,11 @@
             maxlength="50"
             size="25"
           />
-          @if(form.controls.contact.get("street")?.invalid &&
-          form.controls.contact.get("street")?.touched){
-          <p class="invalid">Straße erforderlich</p>
+          @if (
+            form.controls.contact.get("street")?.invalid &&
+            form.controls.contact.get("street")?.touched
+          ) {
+            <p class="invalid">Straße erforderlich</p>
           }
         </div>
         <div class="control-item">
@@ -132,9 +149,11 @@
             maxlength="10"
             size="25"
           />
-          @if(form.controls.contact.get("number")?.invalid &&
-          form.controls.contact.get("number")?.touched){
-          <p class="invalid">Hausnummer erforderlich</p>
+          @if (
+            form.controls.contact.get("number")?.invalid &&
+            form.controls.contact.get("number")?.touched
+          ) {
+            <p class="invalid">Hausnummer erforderlich</p>
           }
         </div>
       </div>
@@ -150,9 +169,11 @@
             maxlength="10"
             size="25"
           />
-          @if(form.controls.contact.get("postalCode")?.invalid &&
-          form.controls.contact.get("postalCode")?.touched){
-          <p class="invalid">PLZ erforderlich</p>
+          @if (
+            form.controls.contact.get("postalCode")?.invalid &&
+            form.controls.contact.get("postalCode")?.touched
+          ) {
+            <p class="invalid">PLZ erforderlich</p>
           }
         </div>
         <div class="control-item">
@@ -165,9 +186,11 @@
             maxlength="50"
             size="25"
           />
-          @if(form.controls.contact.get("city")?.invalid &&
-          form.controls.contact.get("city")?.touched){
-          <p class="invalid">Stadt erforderlich</p>
+          @if (
+            form.controls.contact.get("city")?.invalid &&
+            form.controls.contact.get("city")?.touched
+          ) {
+            <p class="invalid">Stadt erforderlich</p>
           }
         </div>
       </div>
@@ -183,9 +206,11 @@
             maxlength="100"
             size="25"
           />
-          @if(form.controls.contact.get("email")?.invalid &&
-          form.controls.contact.get("email")?.touched){
-          <p class="invalid">Gültige E-Mail erforderlich</p>
+          @if (
+            form.controls.contact.get("email")?.invalid &&
+            form.controls.contact.get("email")?.touched
+          ) {
+            <p class="invalid">Gültige E-Mail erforderlich</p>
           }
         </div>
         <div class="control-item">
@@ -198,9 +223,11 @@
             maxlength="20"
             size="25"
           />
-          @if(form.controls.contact.get("phone")?.invalid &&
-          form.controls.contact.get("phone")?.touched){
-          <p class="invalid">Telefonnummer erforderlich</p>
+          @if (
+            form.controls.contact.get("phone")?.invalid &&
+            form.controls.contact.get("phone")?.touched
+          ) {
+            <p class="invalid">Telefonnummer erforderlich</p>
           }
         </div>
       </div>
@@ -217,14 +244,16 @@
             formControlName="catAmount"
             class="dropdown"
           >
-            <option value="one">1</option>
-            <option value="two">2</option>
-            <option value="three">3</option>
-            <option value="four">4</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
           </select>
-          @if(form.controls.cat.get("catAmount")?.invalid &&
-          form.controls.cat.get("catAmount")?.touched){
-          <p class="invalid">Telefonnummer erforderlich</p>
+          @if (
+            form.controls.cat.get("catAmount")?.invalid &&
+            form.controls.cat.get("catAmount")?.touched
+          ) {
+            <p class="invalid">Katzenanzahl erforderlich</p>
           }
         </div>
         <div>
@@ -261,9 +290,11 @@
               Hiermit bestätige ich, dass alle abzugebenden Tiere bei folgender
               Medikation auf aktuellem Stand (nicht älter als 1 Jahr) sind: *
             </label>
-            @if(form.controls.cat.get("vaccination")?.invalid &&
-            form.controls.cat.get("vaccination")?.touched ){
-            <p class="invalid">Dieses Feld ist ein Pflichtfeld</p>
+            @if (
+              form.controls.cat.get("vaccination")?.invalid &&
+              form.controls.cat.get("vaccination")?.touched
+            ) {
+              <p class="invalid">Dieses Feld ist ein Pflichtfeld</p>
             }
           </div>
           <ul>
@@ -278,10 +309,11 @@
     <div class="form-bottom fontstyle">
       <div>
         <p>Alle mit * gekennzeichneten Felder sind Pflichtfelder</p>
-        @if(form.invalid && form.touched && form.dirty){
-        <span id="test">Bitte überprüfen Sie Ihre Eingaben!</span>
-        } @if(success()){
-        <span class="success">Buchung hat geklappt!</span>
+        @if (form.invalid && form.touched && form.dirty) {
+          <span id="test">Bitte überprüfen Sie Ihre Eingaben!</span>
+        }
+        @if (success()) {
+          <span class="success">Buchung hat geklappt!</span>
         }
       </div>
       <div class="form-actions">

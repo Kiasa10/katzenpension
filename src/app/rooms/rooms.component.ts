@@ -23,9 +23,11 @@ export class RoomsComponent implements OnInit {
     const subscription = this.api.loadRooms().subscribe({
       next: (rooms) => {
         this.rooms.set(rooms);
+        this.isFetching.set(false);
       },
       error: (err: Error) => {
         this.error.set(err.message);
+        this.isFetching.set(false);
       },
       complete: () => {
         this.isFetching.set(false);

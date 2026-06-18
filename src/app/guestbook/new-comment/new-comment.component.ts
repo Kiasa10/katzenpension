@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { ApiService } from '../../api.service';
+import { NewComment } from '../comment/comment.model';
 
 const noWhitespace: ValidatorFn = (control: AbstractControl) => {
   return (control.value || '').trim().length ? null : { hasWhitespace: true };
@@ -41,9 +42,6 @@ export class NewCommentComponent {
         noWhitespace,
       ],
     }),
-    date: new FormControl(new Date(), {
-      validators: [Validators.required],
-    }),
   });
 
   onSubmit() {
@@ -51,22 +49,22 @@ export class NewCommentComponent {
       console.log('invalid form');
       return;
     }
-    const timestamp = new Date();
     const comment = this.newCommentForm.value;
     const subscription = this.api
       .sendComment({
         headline: comment.headline ?? '',
-        username: comment.username ?? '',
+        author: comment.username ?? '',
         content: comment.content ?? '',
-        timestamp: timestamp ?? '',
       })
       .subscribe({
+        next: () => {
+          this.success.set(true);
+          this.router.navigate(['/guestbook']);
+        },
         error: (err: Error) => {
           this.error.set(err.message);
         },
       });
-    this.destroyRef.onDestroy(() => subscription.unsubscribe);
-
-    this.router.navigate(['/guestbook']);
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 }

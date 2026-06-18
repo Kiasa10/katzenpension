@@ -1,7 +1,8 @@
 export interface Guest {
-  _id: string;
+  id: string;
   name: string;
   age: number;
-  imageUrl: string;
+  imageUrlAngular: string;
   descriptionShort: string;
+  descriptionLong: string;
 }

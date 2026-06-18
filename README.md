@@ -32,21 +32,21 @@ Die Webseite ist in unterschiedliche Ansichten aufgeteilt:
 - FAQ
   Hier findet man die am häufigsten gestellten Fragen, welche mit Hilfe eines Akkordeons dargestellt werden.
 
-Webseite starten
+Webseite starten:
 
-Es muss MongoDB installiert sein.
+Für dieses Projekt muss das Backend in asp.net core verwendet werden.
+https://github.com/Kiasa10/KatzenpensionBackendAspDotNet
 
--> mongod.exe starten
+in Visual Studio:
+
+-> in Program.cs bei den CORS-Bedingungen sicherstellen, dass die Angular-Policy nicht kommentiert und
+die React-Policy auskommentiert ist.
+-> in Dev/DbSeeds.cs sicherstellen, dass die Methode "TriggerNextJsImageReset()" für React auskommentiert ist.
+-> Visual Studio starten
 
 in VS Code:
 
-im 1. Terminalfenster:
--> npm i
--> cd backend
--> node seeds.js (Testdaten einspielen)
--> npm start
-
-im 2. Terminalfenster:
+im Terminalfenster:
 -> npm i
 -> npm start
 -> auf http://localhost:4200/ gehen

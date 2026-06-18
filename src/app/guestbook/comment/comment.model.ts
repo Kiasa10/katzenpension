@@ -1,7 +1,14 @@
 export interface Comment {
-  _id?: string;
+  id?: string;
   headline: string;
   username: string;
   content: string;
-  timestamp: Date;
+  date: Date;
+}
+
+export interface NewComment {
+  headline: string;
+  author: string;
+  content: string;
+  imagePath?: string;
 }
