@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5151/api',
+  production: true,
+  apiUrl: 'https://katzenpensionangularbackendaspdotnet.onrender.com/api',
 };
