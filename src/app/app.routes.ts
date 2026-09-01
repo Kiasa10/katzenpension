@@ -7,40 +7,49 @@ import { BookingComponent } from './booking/booking.component';
 import { FaqComponent } from './faq/faq.component';
 import { GuestbookComponent } from './guestbook/guestbook.component';
 import { NewCommentComponent } from './guestbook/new-comment/new-comment.component';
+import { LoginComponent } from './login/login.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'rooms',
-    component: RoomsComponent,
-  },
-  {
-    path: 'guests',
-    component: RegularGuestsComponent,
-  },
-  {
-    path: 'guestbook',
-    component: GuestbookComponent,
-  },
-  {
-    path: 'guestbook/new',
-    component: NewCommentComponent,
-  },
-  {
-    path: 'booking',
-    component: BookingComponent,
-  },
-  {
-    path: 'faq',
-    component: FaqComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
+      {
+        path: 'rooms',
+        component: RoomsComponent,
+      },
+      {
+        path: 'guests',
+        component: RegularGuestsComponent,
+      },
+      {
+        path: 'guestbook',
+        component: GuestbookComponent,
+      },
+      {
+        path: 'guestbook/new',
+        component: NewCommentComponent,
+      },
+      {
+        path: 'booking',
+        component: BookingComponent,
+      },
+      {
+        path: 'faq',
+        component: FaqComponent,
+      },
+    ],
   },
   {
     path: '**',
