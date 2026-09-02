@@ -1,9 +1,13 @@
 <div id="layout">
-  <app-header />
+  @if (authService.isLoggedIn()) {
+    <app-header />
+  }
   <main>
     <section id="content">
       <router-outlet />
     </section>
   </main>
-  <app-footer />
+  @if (authService.isLoggedIn()) {
+    <app-footer />
+  }
 </div>

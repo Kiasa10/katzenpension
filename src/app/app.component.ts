@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,6 @@ import { FooterComponent } from './footer/footer.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+  public authService = inject(AuthService);
+}
