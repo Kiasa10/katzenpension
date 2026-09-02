@@ -26,4 +26,9 @@ export class AuthService {
         catchError(() => of(false)),
       );
   }
+
+  logout() {
+    sessionStorage.removeItem('isLoggedIn');
+    this.isLoggedIn.set(false);
+  }
 }
