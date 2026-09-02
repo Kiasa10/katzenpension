@@ -1,12 +1,14 @@
 <div class="login-area">
   <h2>Dieser Bereich ist geschützt.</h2>
-  <label for="pwInput">Passwort eingeben:</label>
-  <input
-    id="pwInput"
-    type="password"
-    [(ngModel)]="password"
-    (keyup.enter)="onLogin()"
-  />
+  <div class="login-input">
+    <label for="pwInput">Passwort eingeben:</label>
+    <input
+      id="pwInput"
+      type="password"
+      [(ngModel)]="password"
+      (keyup.enter)="onLogin()"
+    />
+  </div>
   <button (click)="onLogin()">Weiter</button>
   @if (errorMessage()) {
     <p>{{ errorMessage() }}</p>

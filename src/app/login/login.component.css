@@ -9,6 +9,11 @@
   font-size: 1rem;
 }
 
+.login-input {
+  display: flex;
+  flex-direction: column;
+}
+
 .login-area button {
   background-color: #673ab7;
   color: white;
