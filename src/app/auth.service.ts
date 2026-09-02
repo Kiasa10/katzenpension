@@ -10,7 +10,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  isLoggedIn = signal<boolean>(localStorage.getItem('isLoggedIn') === 'true');
+  isLoggedIn = signal<boolean>(sessionStorage.getItem('isLoggedIn') === 'true');
 
   login(password: string) {
     return this.http
@@ -19,7 +19,7 @@ export class AuthService {
       })
       .pipe(
         map(() => {
-          localStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('isLoggedIn', 'true');
           this.isLoggedIn.set(true);
           return true;
         }),
