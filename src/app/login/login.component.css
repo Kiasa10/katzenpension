@@ -1,0 +1,25 @@
+.login-area {
+  margin-top: 8rem;
+}
+
+.login-area input {
+  border-radius: 5px;
+  border: 1px solid #482880;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.login-area button {
+  background-color: #673ab7;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
+  margin: 15px;
+  font-size: 1rem;
+  border: 1px solid #673ab7;
+  cursor: pointer;
+}
+
+.login-area button:hover {
+  background-color: #8561c5;
+}
