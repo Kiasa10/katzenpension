@@ -15,9 +15,13 @@ export class LoginComponent {
 
   password = '';
   errorMessage = signal('');
+  isLoading = signal(false);
 
   onLogin() {
+    this.isLoading.set(true);
+
     this.authService.login(this.password).subscribe((success) => {
+      this.isLoading.set(false);
       if (success) {
         this.router.navigate(['/home']);
       } else {

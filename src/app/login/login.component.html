@@ -6,4 +6,7 @@
   @if (errorMessage()) {
     <p>{{ errorMessage() }}</p>
   }
+  @if (isLoading()) {
+    <p>Der Server wird gestartet, bitte um etwas einen Moment Geduld...</p>
+  }
 </div>
